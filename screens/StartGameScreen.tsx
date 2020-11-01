@@ -17,7 +17,7 @@ const StartGameScreen: React.FC<StartGameScreenProps> = (props) => {
           blurOnSubmit
           autoCapitalize="none"
           autoCorrect={false}
-          keyboardType="numeric"
+          keyboardType="number-pad"
           maxLength={2}
         />
         <View style={styles.buttonContainer}>
