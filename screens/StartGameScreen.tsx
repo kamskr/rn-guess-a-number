@@ -11,10 +11,13 @@ import {
 import Card from "../components/Card";
 import { theme } from "../constants/theme";
 import Input from "../components/Input";
+import NumberContainer from "../components/NumberContainer";
 
-interface StartGameScreenProps {}
+interface StartGameScreenProps {
+  onStartGame: (chosenNumber: number | undefined) => void;
+}
 
-const StartGameScreen: React.FC<StartGameScreenProps> = (props) => {
+const StartGameScreen: React.FC<StartGameScreenProps> = ({ onStartGame }) => {
   const [enteredValue, setEnteredValue] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState<number>();
@@ -41,10 +44,23 @@ const StartGameScreen: React.FC<StartGameScreenProps> = (props) => {
     setConfirmed(true);
     setSelectedNumber(parseInt(enteredValue));
     setEnteredValue("");
+    Keyboard.dismiss();
   };
   let confirmedOutput;
   if (confirmed) {
-    confirmedOutput = <Text>Chosen Number: {selectedNumber}</Text>;
+    confirmedOutput = (
+      <Card customStyles={styles.summaryContainer}>
+        <Text>You selected</Text>
+
+        <NumberContainer>{selectedNumber}</NumberContainer>
+        <Button
+          title="START GAME"
+          onPress={() => {
+            onStartGame(selectedNumber);
+          }}
+        />
+      </Card>
+    );
   }
 
   return (
@@ -118,6 +134,10 @@ const styles = StyleSheet.create({
   input: {
     width: 50,
     textAlign: "center",
+  },
+  summaryContainer: {
+    margin: 10,
+    alignItems: "center",
   },
 });
 
