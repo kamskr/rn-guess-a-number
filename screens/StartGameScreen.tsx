@@ -15,12 +15,25 @@ interface StartGameScreenProps {}
 
 const StartGameScreen: React.FC<StartGameScreenProps> = (props) => {
   const [enteredValue, setEnteredValue] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
+  const [selectedNumber, setSelectedNumber] = useState<number>();
 
   const numberInputHandler = (inputText: string) => {
     setEnteredValue(inputText.replace(/[^0-9]/g, ""));
   };
 
   const resetInputHandler = () => {
+    setEnteredValue("");
+    setConfirmed(false);
+  };
+
+  const confirmInputHandler = () => {
+    const chosenNumber = parseInt(enteredValue);
+    if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber >= 99) {
+      return;
+    }
+    setConfirmed(true);
+    setSelectedNumber(parseInt(enteredValue));
     setEnteredValue("");
   };
 
@@ -57,7 +70,9 @@ const StartGameScreen: React.FC<StartGameScreenProps> = (props) => {
             <View style={styles.button}>
               <Button
                 title="Confirm"
-                onPress={() => {}}
+                onPress={() => {
+                  confirmInputHandler();
+                }}
                 color={theme.primary}
               />
             </View>
