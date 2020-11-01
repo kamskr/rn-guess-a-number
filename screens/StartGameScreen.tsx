@@ -36,6 +36,10 @@ const StartGameScreen: React.FC<StartGameScreenProps> = (props) => {
     setSelectedNumber(parseInt(enteredValue));
     setEnteredValue("");
   };
+  let confirmedOutput;
+  if (confirmed) {
+    confirmedOutput = <Text>Chosen Number: {selectedNumber}</Text>;
+  }
 
   return (
     <TouchableWithoutFeedback
@@ -78,6 +82,7 @@ const StartGameScreen: React.FC<StartGameScreenProps> = (props) => {
             </View>
           </View>
         </Card>
+        {confirmedOutput}
       </View>
     </TouchableWithoutFeedback>
   );
