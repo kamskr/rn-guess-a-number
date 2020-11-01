@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import Card from "../components/Card";
 
 interface StartGameScreenProps {}
 
@@ -7,17 +8,18 @@ const StartGameScreen: React.FC<StartGameScreenProps> = (props) => {
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Start a New Game</Text>
-      <View style={styles.inputContainer}>
+      <Card customStyles={styles.inputContainer}>
         <Text>Select a Number</Text>
         <TextInput />
         <View style={styles.buttonContainer}>
           <Button title="Reset" onPress={() => {}} />
           <Button title="Confirm" onPress={() => {}} />
         </View>
-      </View>
+      </Card>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
@@ -29,16 +31,6 @@ const styles = StyleSheet.create({
     width: 300,
     maxWidth: "80%",
     alignItems: "center",
-    backgroundColor: "white",
-    padding: 20,
-    borderRadius: 10,
-    // For IOS
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.16,
-    // For Android
-    elevation: 5,
   },
   buttonContainer: {
     flexDirection: "row",
