@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 
 interface CardProps {
-  customStyles: {};
+  customStyles?: {};
 }
 
 const Card: React.FC<CardProps> = ({ children, customStyles }) => {
