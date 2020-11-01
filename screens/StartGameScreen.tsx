@@ -20,6 +20,10 @@ const StartGameScreen: React.FC<StartGameScreenProps> = (props) => {
     setEnteredValue(inputText.replace(/[^0-9]/g, ""));
   };
 
+  const resetInputHandler = () => {
+    setEnteredValue("");
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -42,7 +46,13 @@ const StartGameScreen: React.FC<StartGameScreenProps> = (props) => {
           />
           <View style={styles.buttonContainer}>
             <View style={styles.button}>
-              <Button title="Reset" onPress={() => {}} color={theme.accent} />
+              <Button
+                title="Reset"
+                onPress={() => {
+                  resetInputHandler();
+                }}
+                color={theme.accent}
+              />
             </View>
             <View style={styles.button}>
               <Button
