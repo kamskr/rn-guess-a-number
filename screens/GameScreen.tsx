@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { View, Text, StyleSheet, Button, Alert } from "react-native";
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
@@ -20,15 +20,23 @@ const generateRandomBetween = (
 
 interface GameScreenProps {
   userChoice: number;
+  onGameOver: (numberOfRounds: number) => void;
 }
 
-const GameScreen: React.FC<GameScreenProps> = ({ userChoice }) => {
+const GameScreen: React.FC<GameScreenProps> = ({ userChoice, onGameOver }) => {
   const [currentGuess, setCurrentGuess] = useState(
     generateRandomBetween(1, 100, userChoice)
   );
+  const [rounds, setRounds] = useState(0);
   // In opposite to state -> ref will not rerender on change
   const currentLow = useRef<number>(1);
   const currentMax = useRef<number>(100);
+
+  useEffect(() => {
+    if (currentGuess === userChoice) {
+      onGameOver(rounds);
+    }
+  }, [currentGuess, userChoice, onGameOver]);
 
   const nextGuessHandler = (direction: string) => {
     if (
@@ -52,6 +60,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ userChoice }) => {
         currentGuess
       )
     );
+    setRounds((currentRounds) => currentRounds + 1);
   };
 
   return (
