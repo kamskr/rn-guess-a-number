@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: "center",
   },
-  title: { fontSize: 20, marginVertical: 10 },
+  title: { fontSize: 20, marginVertical: 10, fontFamily: "open-sans-bold" },
   inputContainer: {
     width: 300,
     maxWidth: "80%",
