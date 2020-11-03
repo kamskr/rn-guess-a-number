@@ -18,7 +18,16 @@ const GameOverScreen: React.FC<GameOverScreenProps> = ({
     <View style={styles.screen}>
       <TitleText>The Game is Over!</TitleText>
       <View style={styles.imageContainer}>
-        <Image source={require("../assets/success.png")} style={styles.image} />
+        {/* image from assets */}
+        {/* <Image source={require("../assets/success.png")} style={styles.image} /> */}
+        {/* image from web */}
+        <Image
+          source={{
+            uri:
+              "https://i.pinimg.com/originals/29/06/49/29064960c2b0e3b0ab3fa1e9005ee971.jpg",
+          }}
+          style={styles.image}
+        />
       </View>
 
       <BodyText>Number of rounds: {numberOfRounds}</BodyText>
