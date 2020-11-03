@@ -3,9 +3,9 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   Alert,
   ScrollView,
+  FlatList,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import NumberContainer from "../components/NumberContainer";
@@ -29,10 +29,10 @@ const generateRandomBetween = (
   }
 };
 
-const renderListItem = (value: number, numOfRound: number) => (
-  <View key={value} style={styles.listItem}>
-    <BodyText>#{numOfRound}</BodyText>
-    <BodyText>{value}</BodyText>
+const renderListItem = (listLength: number, itemData: any) => (
+  <View style={styles.listItem}>
+    <BodyText>#{listLength - itemData.index}</BodyText>
+    <BodyText>{itemData.item}</BodyText>
   </View>
 );
 
@@ -100,11 +100,17 @@ const GameScreen: React.FC<GameScreenProps> = ({ userChoice, onGameOver }) => {
         </MainButton>
       </Card>
       <View style={styles.listContainter}>
-        <ScrollView contentContainerStyle={styles.list}>
+        {/* <ScrollView contentContainerStyle={styles.list}>
           {pastGuesses.map((value, index) =>
             renderListItem(value, pastGuesses.length - index)
           )}
-        </ScrollView>
+        </ScrollView> */}
+        <FlatList
+          keyExtractor={(item) => item.toString()}
+          data={pastGuesses}
+          renderItem={renderListItem.bind(this, pastGuesses.length)}
+          contentContainerStyle={styles.list}
+        />
       </View>
     </View>
   );
@@ -125,10 +131,10 @@ const styles = StyleSheet.create({
   },
   list: {
     flexGrow: 1,
-    alignItems: "center",
+    // alignItems: "center",
     justifyContent: "flex-end",
   },
-  listContainter: { flex: 1, width: "80%" },
+  listContainter: { flex: 1, width: "60%" },
   listItem: {
     borderColor: "#ccc",
     borderWidth: 1,
@@ -137,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flexDirection: "row",
     justifyContent: "space-around",
-    width: "60%",
+    width: "100%",
   },
 });
 
