@@ -99,7 +99,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ userChoice, onGameOver }) => {
           <Ionicons name="md-add" size={24} color="white" />
         </MainButton>
       </Card>
-      <View style={styles.listContainer}>
+      <View style={styles.listContainter}>
         <ScrollView contentContainerStyle={styles.list}>
           {pastGuesses.map((value, index) =>
             renderListItem(value, pastGuesses.length - index)
@@ -124,7 +124,9 @@ const styles = StyleSheet.create({
     maxWidth: "80%",
   },
   list: {
+    flexGrow: 1,
     alignItems: "center",
+    justifyContent: "flex-end",
   },
   listContainter: { flex: 1, width: "80%" },
   listItem: {
