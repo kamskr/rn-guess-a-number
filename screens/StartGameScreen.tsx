@@ -12,6 +12,7 @@ import Card from "../components/Card";
 import { theme } from "../constants/theme";
 import Input from "../components/Input";
 import NumberContainer from "../components/NumberContainer";
+import MainButton from "../components/MainButton";
 
 interface StartGameScreenProps {
   onStartGame: (chosenNumber: number | undefined) => void;
@@ -53,12 +54,13 @@ const StartGameScreen: React.FC<StartGameScreenProps> = ({ onStartGame }) => {
         <Text>You selected</Text>
 
         <NumberContainer>{selectedNumber}</NumberContainer>
-        <Button
-          title="START GAME"
+        <MainButton
           onPress={() => {
             onStartGame(selectedNumber);
           }}
-        />
+        >
+          START GAME
+        </MainButton>
       </Card>
     );
   }

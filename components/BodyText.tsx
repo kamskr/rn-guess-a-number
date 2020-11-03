@@ -7,7 +7,12 @@ interface BodyTextProps {
 }
 
 const BodyText: React.FC<BodyTextProps> = (props) => {
-  return <Text style={DefaultStyles.bodyText} {...props} />;
+  return (
+    <Text
+      style={{ ...props.customStyles, ...DefaultStyles.bodyText }}
+      {...props}
+    />
+  );
 };
 
 export default BodyText;
