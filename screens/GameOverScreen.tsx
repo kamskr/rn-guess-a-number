@@ -1,5 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, StyleSheet, Button, Image } from "react-native";
+import BodyText from "../components/BodyText";
+import TitleText from "../components/TitleText";
 
 interface GameOverScreenProps {
   numberOfRounds: number;
@@ -14,9 +16,13 @@ const GameOverScreen: React.FC<GameOverScreenProps> = ({
 }) => {
   return (
     <View style={styles.screen}>
-      <Text>The Game is Over!</Text>
-      <Text>Number of rounds: {numberOfRounds}</Text>
-      <Text>User number: {userNumber}</Text>
+      <TitleText>The Game is Over!</TitleText>
+      <View style={styles.imageContainer}>
+        <Image source={require("../assets/success.png")} style={styles.image} />
+      </View>
+
+      <BodyText>Number of rounds: {numberOfRounds}</BodyText>
+      <BodyText>User number: {userNumber}</BodyText>
       <Button
         title="Restart game"
         onPress={() => {
@@ -32,6 +38,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+  imageContainer: {
+    borderRadius: 150,
+    borderWidth: 3,
+    borderColor: "black",
+    width: 300,
+    height: 300,
+    overflow: "hidden",
+    margin: 30,
   },
 });
 
