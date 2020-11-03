@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, StyleSheet, Button, Alert } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
 import DefaultStyles from "../constants/default-styles";
+import MainButton from "../components/MainButton";
 
 const generateRandomBetween = (
   min: number,
@@ -69,18 +71,20 @@ const GameScreen: React.FC<GameScreenProps> = ({ userChoice, onGameOver }) => {
       <Text style={DefaultStyles.title}>Opponent's Guess</Text>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card customStyles={styles.buttonContainer}>
-        <Button
-          title="LOWER"
+        <MainButton
           onPress={() => {
             nextGuessHandler("lower");
           }}
-        ></Button>
-        <Button
-          title="GREATER"
+        >
+          <Ionicons name="md-remove" size={24} color="white" />
+        </MainButton>
+        <MainButton
           onPress={() => {
             nextGuessHandler("greater");
           }}
-        ></Button>
+        >
+          <Ionicons name="md-add" size={24} color="white" />
+        </MainButton>
       </Card>
     </View>
   );
