@@ -1,5 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Button, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Alert,
+  ScrollView,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
@@ -27,17 +34,16 @@ interface GameScreenProps {
 }
 
 const GameScreen: React.FC<GameScreenProps> = ({ userChoice, onGameOver }) => {
-  const [currentGuess, setCurrentGuess] = useState(
-    generateRandomBetween(1, 100, userChoice)
-  );
-  const [rounds, setRounds] = useState(0);
+  const initialGuess = generateRandomBetween(1, 100, userChoice);
+  const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [pastGuesses, setPastGuesses] = useState([initialGuess]);
   // In opposite to state -> ref will not rerender on change
   const currentLow = useRef<number>(1);
   const currentMax = useRef<number>(100);
 
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds);
+      onGameOver(pastGuesses.length);
     }
   }, [currentGuess, userChoice, onGameOver]);
 
@@ -54,16 +60,15 @@ const GameScreen: React.FC<GameScreenProps> = ({ userChoice, onGameOver }) => {
     if (direction === "lower") {
       currentMax.current = currentGuess;
     } else {
-      currentLow.current = currentGuess;
+      currentLow.current = currentGuess + 1;
     }
-    setCurrentGuess(
-      generateRandomBetween(
-        currentLow.current,
-        currentMax.current,
-        currentGuess
-      )
+    const nextNumber = generateRandomBetween(
+      currentLow.current,
+      currentMax.current,
+      currentGuess
     );
-    setRounds((currentRounds) => currentRounds + 1);
+    setCurrentGuess(nextNumber);
+    setPastGuesses((currPastGueses) => [nextNumber, ...currPastGueses]);
   };
 
   return (
@@ -86,6 +91,13 @@ const GameScreen: React.FC<GameScreenProps> = ({ userChoice, onGameOver }) => {
           <Ionicons name="md-add" size={24} color="white" />
         </MainButton>
       </Card>
+      <ScrollView>
+        {pastGuesses.map((guess) => (
+          <View key={guess}>
+            <Text>{guess}</Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 };
